@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FF Tournaments - Competitive Free Fire Battles</title>
-    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Oxanium:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -16,19 +16,26 @@
             --success: #28A745;
             --warning: #FFC107;
             --danger: #DC3545;
+            --purple: #6F42C1;
         }
         
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Oxanium', sans-serif;
         }
         
         body {
             background-color: var(--dark);
             color: var(--light);
             min-height: 100vh;
+            font-family: 'Oxanium', 'Poppins', sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
         
         /* Header/Navbar */
@@ -59,7 +66,8 @@
             background: linear-gradient(to right, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 700;
+            font-weight: 800;
+            text-transform: uppercase;
         }
         
         nav ul {
@@ -75,6 +83,8 @@
             font-size: 1.1rem;
             transition: all 0.3s;
             position: relative;
+            text-transform: uppercase;
+            font-family: 'Barlow Condensed', sans-serif;
         }
         
         nav a:hover {
@@ -107,6 +117,9 @@
             cursor: pointer;
             transition: all 0.3s;
             border: none;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .btn-primary {
@@ -117,6 +130,7 @@
         .btn-primary:hover {
             background: #e05f00;
             transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(255, 107, 0, 0.3);
         }
         
         .btn-outline {
@@ -141,23 +155,50 @@
                         url('https://images.contentstack.io/v3/assets/bltb6530b271fddd0b1/blt29d7c4f6bc077e9a/5eb26f54402b8b4d13a56656/05082020-Valorant_Red_CMYK.jpg');
             background-size: cover;
             background-position: center;
-            padding: 80px 5%;
+            padding: 120px 5%;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .hero h2 {
-            font-size: 3rem;
+            font-size: 4rem;
             margin-bottom: 20px;
             background: linear-gradient(to right, var(--primary), var(--accent));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 0.8s ease;
+            line-height: 1.1;
+            text-transform: uppercase;
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto 30px;
             line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            animation: fadeInUp 0.8s ease 0.2s forwards;
+            opacity: 0;
         }
         
         .search-bar {
@@ -167,6 +208,10 @@
             background: rgba(255, 255, 255, 0.1);
             border-radius: 6px;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 0.8s ease 0.4s forwards;
+            opacity: 0;
+            transform: translateY(20px);
         }
         
         .search-bar input {
@@ -198,19 +243,35 @@
         
         /* Tournaments Section */
         .section {
-            padding: 60px 5%;
+            padding: 80px 5%;
         }
         
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         
         .section-header h3 {
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             color: var(--primary);
+            position: relative;
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-header h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 3px;
         }
         
         .view-all {
@@ -220,51 +281,75 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .view-all:hover {
+            transform: translateX(5px);
         }
         
         .tournament-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
         }
         
         .tournament-card {
             background: var(--secondary);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             transition: all 0.3s;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
         }
         
         .tournament-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
             border-color: var(--primary);
         }
         
         .tournament-banner {
-            height: 150px;
+            height: 180px;
             background: linear-gradient(45deg, #2a2a3e, #1a1a2e);
             position: relative;
             overflow: hidden;
+        }
+        
+        .tournament-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
         }
         
         .tournament-banner img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .tournament-card:hover .tournament-banner img {
+            transform: scale(1.05);
         }
         
         .tournament-prize {
             position: absolute;
             bottom: 15px;
             left: 15px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 5px 10px;
-            border-radius: 4px;
+            background: linear-gradient(to right, var(--primary), var(--purple));
+            padding: 6px 12px;
+            border-radius: 20px;
             font-weight: 600;
-            color: var(--accent);
+            color: white;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
         
         .tournament-details {
@@ -272,31 +357,36 @@
         }
         
         .tournament-title {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
             color: white;
+            font-weight: 700;
         }
         
         .tournament-info {
             display: flex;
             justify-content: space-between;
             margin-bottom: 15px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.7);
         }
         
         .tournament-meta {
             display: flex;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
         }
         
         .meta-item {
             display: flex;
             align-items: center;
-            gap: 5px;
-            font-size: 0.8rem;
+            gap: 6px;
+            font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
         }
         
         .tournament-actions {
@@ -306,8 +396,9 @@
         }
         
         .entry-fee {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--primary);
+            font-size: 1.1rem;
         }
         
         /* Registration Modal */
@@ -318,30 +409,36 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.9);
             z-index: 1000;
             overflow-y: auto;
             padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal-content {
             background: var(--secondary);
-            max-width: 800px;
+            max-width: 850px;
             margin: 50px auto;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            animation: modalFadeIn 0.3s;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.4s;
         }
         
-        @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes modalSlideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
         .modal-header {
             padding: 20px;
-            background: var(--dark);
+            background: linear-gradient(to right, var(--dark), var(--secondary));
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -349,43 +446,58 @@
         }
         
         .modal-header h3 {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .modal-header h3 i {
+            color: var(--accent);
         }
         
         .close-modal {
             background: none;
             border: none;
             color: rgba(255, 255, 255, 0.7);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
             transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
         
         .close-modal:hover {
             color: var(--danger);
+            background: rgba(220, 53, 69, 0.1);
         }
         
         .modal-body {
-            padding: 20px;
+            padding: 30px;
         }
         
         /* Registration Steps */
         .registration-steps {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             position: relative;
         }
         
         .registration-steps::before {
             content: '';
             position: absolute;
-            top: 15px;
+            top: 20px;
             left: 0;
             right: 0;
-            height: 2px;
+            height: 3px;
             background: rgba(255, 255, 255, 0.1);
             z-index: 1;
+            border-radius: 3px;
         }
         
         .step {
@@ -398,36 +510,44 @@
         }
         
         .step-number {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
             color: rgba(255, 255, 255, 0.5);
+            border: 2px solid transparent;
+            transition: all 0.3s;
         }
         
         .step.active .step-number {
             background: var(--primary);
             color: white;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.3);
         }
         
         .step.completed .step-number {
             background: var(--success);
             color: white;
+            border-color: rgba(255, 255, 255, 0.2);
         }
         
         .step-text {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             color: rgba(255, 255, 255, 0.5);
             font-weight: 500;
+            text-align: center;
         }
         
         .step.active .step-text {
             color: var(--primary);
+            font-weight: 600;
         }
         
         .step.completed .step-text {
@@ -441,30 +561,26 @@
         
         .registration-form.active {
             display: block;
-            animation: fadeIn 0.3s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            animation: fadeIn 0.5s;
         }
         
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
         }
         
         .form-control {
             width: 100%;
-            padding: 12px 15px;
-            background: rgba(255, 255, 255, 0.1);
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 6px;
+            border-radius: 8px;
             color: white;
             font-size: 1rem;
             transition: all 0.3s;
@@ -474,33 +590,94 @@
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
         }
         
+        /* Team Members Section */
         .team-members {
             margin-top: 30px;
         }
         
+        .members-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .members-header h4 {
+            color: var(--accent);
+            font-size: 1.3rem;
+        }
+        
+        .members-count {
+            background: rgba(0, 224, 255, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
         .member-card {
             background: rgba(0, 0, 0, 0.2);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
             border: 1px dashed rgba(255, 255, 255, 0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .member-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .member-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
         }
         
         .member-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .member-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .member-number {
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
         
         .remove-member {
             background: var(--danger);
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -511,162 +688,144 @@
         
         .remove-member:hover {
             background: #c82333;
+            transform: rotate(90deg);
+        }
+        
+        .member-fields {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
         }
         
         .add-member {
             background: var(--success);
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 8px;
             cursor: pointer;
             transition: all 0.3s;
             margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1rem;
         }
         
         .add-member:hover {
             background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
         
-        /* Payment Methods */
-        .payment-methods {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .payment-method {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            padding: 15px;
+        /* Confirmation Section */
+        .confirmation-icon {
             text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
+            font-size: 80px;
+            color: var(--success);
+            margin-bottom: 20px;
+            animation: bounceIn 0.8s;
         }
         
-        .payment-method:hover {
-            border-color: var(--primary);
+        @keyframes bounceIn {
+            0% { transform: scale(0.5); opacity: 0; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); }
         }
         
-        .payment-method.selected {
-            border-color: var(--primary);
-            background: rgba(255, 107, 0, 0.1);
+        .confirmation-message {
+            text-align: center;
+            margin-bottom: 30px;
         }
         
-        .payment-method img {
-            height: 40px;
+        .confirmation-message h3 {
+            font-size: 2rem;
             margin-bottom: 10px;
+            color: var(--primary);
         }
         
-        /* Chat Section */
-        .chat-container {
-            display: flex;
-            height: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
-            overflow: hidden;
+        .confirmation-message p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            font-size: 1.1rem;
         }
         
-        .chat-sidebar {
-            width: 250px;
-            background: var(--dark);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        .team-details-card {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary);
         }
         
-        .chat-main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .chat-header {
-            padding: 15px;
-            background: var(--dark);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        .team-details-card h4 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .chat-header img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .team-details-card h4 i {
+            font-size: 1.2rem;
         }
         
-        .chat-messages {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            background: rgba(0, 0, 0, 0.1);
-        }
-        
-        .message {
+        .detail-item {
             margin-bottom: 15px;
-            max-width: 70%;
-        }
-        
-        .message.received {
-            align-self: flex-start;
-        }
-        
-        .message.sent {
-            align-self: flex-end;
-            margin-left: auto;
-        }
-        
-        .message-content {
-            padding: 10px 15px;
-            border-radius: 18px;
-            background: var(--secondary);
-            display: inline-block;
-        }
-        
-        .message.sent .message-content {
-            background: var(--primary);
-        }
-        
-        .message-time {
-            font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 5px;
-        }
-        
-        .chat-input {
             display: flex;
-            padding: 10px;
-            background: var(--dark);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            gap: 10px;
         }
         
-        .chat-input input {
+        .detail-item strong {
+            color: var(--primary);
+            min-width: 120px;
+        }
+        
+        .detail-item span {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .member-list {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+        
+        .member-list li {
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+        }
+        
+        .member-list li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .action-buttons .btn {
             flex: 1;
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 20px;
-            color: white;
+            padding: 12px;
+            font-size: 1rem;
         }
         
-        .chat-input button {
-            background: var(--primary);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .chat-input button:hover {
-            background: #e05f00;
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
         /* Responsive Design */
@@ -676,7 +835,7 @@
             }
             
             .hero h2 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
         }
         
@@ -698,46 +857,57 @@
             }
             
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
             }
             
             .tournament-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
             
-            .payment-methods {
-                grid-template-columns: repeat(2, 1fr);
+            .member-fields {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
             }
         }
         
         @media (max-width: 576px) {
             .hero h2 {
-                font-size: 1.8rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
+                font-size: 2rem;
             }
             
             .section-header {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 10px;
+                gap: 15px;
             }
             
-            .payment-methods {
-                grid-template-columns: 1fr;
+            .section-header h3 {
+                font-size: 2rem;
             }
             
-            .chat-container {
-                flex-direction: column;
-                height: 500px;
+            .modal-body {
+                padding: 20px;
             }
             
-            .chat-sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            .registration-steps {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+            
+            .registration-steps::before {
+                display: none;
+            }
+            
+            .step {
+                flex: none;
+                width: calc(50% - 10px);
             }
         }
     </style>
@@ -772,19 +942,21 @@
     
     <!-- Hero Section -->
     <section class="hero">
-        <h2>Compete in Free Fire Tournaments</h2>
-        <p>Join thousands of players in daily competitive battles. Win cash prizes and prove you're the best Free Fire squad!</p>
-        
-        <div class="search-bar">
-            <input type="text" placeholder="Search tournaments...">
-            <button><i class="fas fa-search"></i></button>
+        <div class="hero-content">
+            <h2>Compete in Free Fire Tournaments</h2>
+            <p>Join thousands of players in daily competitive battles. Win cash prizes and prove you're the best Free Fire squad!</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Search tournaments...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
         </div>
     </section>
     
     <!-- Tournaments Section -->
     <section class="section">
         <div class="section-header">
-            <h3>Upcoming Tournaments</h3>
+            <h3><i class="fas fa-bolt"></i> Upcoming Tournaments</h3>
             <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
         </div>
         
@@ -792,14 +964,14 @@
             <!-- Tournament Card 1 -->
             <div class="tournament-card" onclick="openRegistrationModal('weekend_warrior')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Weekend+Warrior" alt="Weekend Warrior">
+                    <img src="https://via.placeholder.com/600x300?text=Weekend+Warrior" alt="Weekend Warrior">
                     <div class="tournament-prize">₹15,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Weekend Warrior</h3>
                     <div class="tournament-info">
-                        <span>Starts: Today 8:00 PM</span>
-                        <span>Teams: 32/50</span>
+                        <span><i class="far fa-calendar-alt"></i> Today 8:00 PM</span>
+                        <span><i class="fas fa-users"></i> 32/50 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 5v5</span>
@@ -808,7 +980,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹500 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -816,14 +988,14 @@
             <!-- Tournament Card 2 -->
             <div class="tournament-card" onclick="openRegistrationModal('daily_showdown')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Daily+Showdown" alt="Daily Showdown">
+                    <img src="https://via.placeholder.com/600x300?text=Daily+Showdown" alt="Daily Showdown">
                     <div class="tournament-prize">₹5,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Daily Showdown</h3>
                     <div class="tournament-info">
-                        <span>Starts: Tomorrow 7:00 PM</span>
-                        <span>Teams: 15/25</span>
+                        <span><i class="far fa-calendar-alt"></i> Tomorrow 7:00 PM</span>
+                        <span><i class="fas fa-users"></i> 15/25 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 4v4</span>
@@ -832,7 +1004,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹300 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -840,14 +1012,14 @@
             <!-- Tournament Card 3 -->
             <div class="tournament-card" onclick="openRegistrationModal('elite_clash')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Elite+Clash" alt="Elite Clash">
+                    <img src="https://via.placeholder.com/600x300?text=Elite+Clash" alt="Elite Clash">
                     <div class="tournament-prize">₹50,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Elite Clash</h3>
                     <div class="tournament-info">
-                        <span>Starts: Sat, 5:00 PM</span>
-                        <span>Teams: 12/20</span>
+                        <span><i class="far fa-calendar-alt"></i> Sat, 5:00 PM</span>
+                        <span><i class="fas fa-users"></i> 12/20 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 5v5</span>
@@ -856,7 +1028,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹2,000 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -866,7 +1038,7 @@
     <!-- Popular Tournaments Section -->
     <section class="section" style="background: rgba(0, 0, 0, 0.2);">
         <div class="section-header">
-            <h3>Popular Tournaments</h3>
+            <h3><i class="fas fa-fire"></i> Popular Tournaments</h3>
             <a href="#" class="view-all">View All <i class="fas fa-chevron-right"></i></a>
         </div>
         
@@ -874,14 +1046,14 @@
             <!-- Tournament Card 4 -->
             <div class="tournament-card" onclick="openRegistrationModal('rush_hour')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Rush+Hour" alt="Rush Hour">
+                    <img src="https://via.placeholder.com/600x300?text=Rush+Hour" alt="Rush Hour">
                     <div class="tournament-prize">₹10,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Rush Hour</h3>
                     <div class="tournament-info">
-                        <span>Starts: Daily 9:00 PM</span>
-                        <span>Teams: 45/50</span>
+                        <span><i class="far fa-calendar-alt"></i> Daily 9:00 PM</span>
+                        <span><i class="fas fa-users"></i> 45/50 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 5v5</span>
@@ -890,7 +1062,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹1,000 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -898,14 +1070,14 @@
             <!-- Tournament Card 5 -->
             <div class="tournament-card" onclick="openRegistrationModal('newbie_night')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Newbie+Night" alt="Newbie Night">
+                    <img src="https://via.placeholder.com/600x300?text=Newbie+Night" alt="Newbie Night">
                     <div class="tournament-prize">₹3,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Newbie Night</h3>
                     <div class="tournament-info">
-                        <span>Starts: Fri, 6:00 PM</span>
-                        <span>Teams: 8/20</span>
+                        <span><i class="far fa-calendar-alt"></i> Fri, 6:00 PM</span>
+                        <span><i class="fas fa-users"></i> 8/20 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 4v4</span>
@@ -914,7 +1086,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹200 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -922,14 +1094,14 @@
             <!-- Tournament Card 6 -->
             <div class="tournament-card" onclick="openRegistrationModal('pro_series')">
                 <div class="tournament-banner">
-                    <img src="https://via.placeholder.com/400x150?text=Pro+Series" alt="Pro Series">
+                    <img src="https://via.placeholder.com/600x300?text=Pro+Series" alt="Pro Series">
                     <div class="tournament-prize">₹1,00,000 Prize Pool</div>
                 </div>
                 <div class="tournament-details">
                     <h3 class="tournament-title">Pro Series</h3>
                     <div class="tournament-info">
-                        <span>Starts: Sun, 3:00 PM</span>
-                        <span>Teams: 18/25</span>
+                        <span><i class="far fa-calendar-alt"></i> Sun, 3:00 PM</span>
+                        <span><i class="fas fa-users"></i> 18/25 Teams</span>
                     </div>
                     <div class="tournament-meta">
                         <span class="meta-item"><i class="fas fa-users"></i> 5v5</span>
@@ -938,7 +1110,7 @@
                     </div>
                     <div class="tournament-actions">
                         <span class="entry-fee">₹5,000 Entry</span>
-                        <button class="btn btn-primary" style="padding: 6px 12px; font-size: 0.9rem;">Register</button>
+                        <button class="btn btn-primary">Register</button>
                     </div>
                 </div>
             </div>
@@ -949,7 +1121,7 @@
     <div class="modal" id="registrationModal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modalTournamentTitle">Weekend Warrior</h3>
+                <h3><i class="fas fa-trophy"></i> <span id="modalTournamentTitle">Weekend Warrior</span></h3>
                 <button class="close-modal" onclick="closeModal()">&times;</button>
             </div>
             
@@ -965,50 +1137,54 @@
                     </div>
                     <div class="step" id="step3">
                         <div class="step-number">3</div>
-                        <div class="step-text">Payment</div>
-                    </div>
-                    <div class="step" id="step4">
-                        <div class="step-number">4</div>
                         <div class="step-text">Confirmation</div>
                     </div>
                 </div>
                 
                 <!-- Step 1: Team Information -->
                 <div class="registration-form active" id="teamInfoForm">
-                    <h4 style="margin-bottom: 20px;">Team Information</h4>
+                    <h4 style="margin-bottom: 20px; color: var(--accent);"><i class="fas fa-info-circle"></i> Team Information</h4>
                     
                     <div class="form-group">
-                        <label for="teamName">Team Name</label>
+                        <label for="teamName"><i class="fas fa-users"></i> Team Name</label>
                         <input type="text" id="teamName" class="form-control" placeholder="Enter your team name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="teamLeader">Team Leader Name</label>
+                        <label for="teamLeader"><i class="fas fa-crown"></i> Team Leader Name</label>
                         <input type="text" id="teamLeader" class="form-control" placeholder="Enter team leader name">
                     </div>
                     
                     <div class="form-group">
-                        <label for="leaderPhone">Phone Number</label>
+                        <label for="leaderPhone"><i class="fas fa-phone"></i> Phone Number</label>
                         <input type="tel" id="leaderPhone" class="form-control" placeholder="Enter phone number">
                     </div>
                     
                     <div class="form-group">
-                        <label for="leaderEmail">Email Address</label>
+                        <label for="leaderEmail"><i class="fas fa-envelope"></i> Email Address</label>
                         <input type="email" id="leaderEmail" class="form-control" placeholder="Enter email address">
                     </div>
                     
                     <div class="form-group">
-                        <label for="leaderFFID">Free Fire ID</label>
+                        <label for="leaderFFID"><i class="fas fa-gamepad"></i> Free Fire ID</label>
                         <input type="text" id="leaderFFID" class="form-control" placeholder="Enter your Free Fire ID">
                     </div>
                     
-                    <button class="btn btn-primary" onclick="nextStep(2)" style="width: 100%; margin-top: 20px;">Continue to Team Members</button>
+                    <button class="btn btn-primary" onclick="nextStep(2)" style="width: 100%; margin-top: 20px;">
+                        Continue to Team Members <i class="fas fa-arrow-right"></i>
+                    </button>
                 </div>
                 
                 <!-- Step 2: Team Members -->
                 <div class="registration-form" id="teamMembersForm">
-                    <h4 style="margin-bottom: 20px;">Team Members</h4>
-                    <p style="margin-bottom: 20px; color: rgba(255, 255, 255, 0.7);">Add up to 4 team members (5 total including leader)</p>
+                    <div class="members-header">
+                        <h4><i class="fas fa-users"></i> Team Members</h4>
+                        <span class="members-count" id="membersCount">0/4 Members</span>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px; color: rgba(255, 255, 255, 0.7);">
+                        Add up to 4 team members (5 total including leader)
+                    </p>
                     
                     <div class="team-members" id="membersContainer">
                         <!-- Member cards will be added here by JavaScript -->
@@ -1018,200 +1194,63 @@
                         <i class="fas fa-plus"></i> Add Team Member
                     </button>
                     
-                    <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <button class="btn btn-outline" onclick="prevStep(1)" style="flex: 1;">Back</button>
-                        <button class="btn btn-primary" onclick="nextStep(3)" style="flex: 1;">Continue to Payment</button>
+                    <div class="action-buttons">
+                        <button class="btn btn-outline" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="btn btn-primary" onclick="completeRegistration()">
+                            Complete Registration <i class="fas fa-check"></i>
+                        </button>
                     </div>
                 </div>
                 
-                <!-- Step 3: Payment -->
-                <div class="registration-form" id="paymentForm">
-                    <h4 style="margin-bottom: 20px;">Payment</h4>
-                    
-                    <div class="form-group">
-                        <label>Select Entry Fee</label>
-                        <select class="form-control" id="entryFee">
-                            <option value="300">₹300</option>
-                            <option value="500">₹500</option>
-                            <option value="1000">₹1,000</option>
-                            <option value="1500">₹1,500</option>
-                            <option value="2000">₹2,000</option>
-                        </select>
-                    </div>
-                    
-                    <h5 style="margin: 25px 0 15px;">Select Payment Method</h5>
-                    <div class="payment-methods">
-                        <div class="payment-method" onclick="selectPaymentMethod('phonepe')">
-                            <img src="https://via.placeholder.com/100x40?text=PhonePe" alt="PhonePe">
-                            <div>PhonePe</div>
-                        </div>
-                        <div class="payment-method" onclick="selectPaymentMethod('paytm')">
-                            <img src="https://via.placeholder.com/100x40?text=Paytm" alt="Paytm">
-                            <div>Paytm</div>
-                        </div>
-                        <div class="payment-method" onclick="selectPaymentMethod('googlepay')">
-                            <img src="https://via.placeholder.com/100x40?text=Google+Pay" alt="Google Pay">
-                            <div>Google Pay</div>
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <button class="btn btn-outline" onclick="prevStep(2)" style="flex: 1;">Back</button>
-                        <button class="btn btn-primary" onclick="processPayment()" style="flex: 1;">Pay Now</button>
-                    </div>
-                </div>
-                
-                <!-- Step 4: Confirmation -->
+                <!-- Step 3: Confirmation -->
                 <div class="registration-form" id="confirmationForm">
-                    <div style="text-align: center; padding: 30px 0;">
-                        <div style="font-size: 5rem; color: var(--success); margin-bottom: 20px;">
-                            <i class="fas fa-check-circle"></i>
-                        </div>
-                        <h3 style="margin-bottom: 15px;">Registration Successful!</h3>
-                        <p style="margin-bottom: 10px; color: rgba(255, 255, 255, 0.7);">Your team has been registered for <span id="confirmedTournament" style="color: var(--primary); font-weight: 600;">Weekend Warrior</span></p>
-                        <p style="color: rgba(255, 255, 255, 0.7);">Payment confirmation has been sent to your email.</p>
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
                     </div>
                     
-                    <div style="background: rgba(0, 0, 0, 0.2); padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                        <h4 style="margin-bottom: 15px; color: var(--accent);">Your Team Details</h4>
+                    <div class="confirmation-message">
+                        <h3>Registration Successful!</h3>
+                        <p>Your team has been registered for <span style="color: var(--primary); font-weight: 600;" id="confirmedTournament">Weekend Warrior</span></p>
+                        <p>Your slot has been confirmed. Tournament details will be sent to your email.</p>
+                    </div>
+                    
+                    <div class="team-details-card">
+                        <h4><i class="fas fa-users"></i> Your Team Details</h4>
                         
-                        <div style="margin-bottom: 15px;">
-                            <strong>Team Name:</strong> <span id="confirmedTeamName">Team Elite</span>
+                        <div class="detail-item">
+                            <strong>Team Name:</strong>
+                            <span id="confirmedTeamName">Team Elite</span>
                         </div>
                         
-                        <div style="margin-bottom: 15px;">
-                            <strong>Team Leader:</strong> <span id="confirmedLeader">John Doe (FF123456789)</span>
+                        <div class="detail-item">
+                            <strong>Team Leader:</strong>
+                            <span id="confirmedLeader">John Doe (FF123456789)</span>
                         </div>
                         
-                        <div style="margin-bottom: 15px;">
+                        <div class="detail-item">
                             <strong>Team Members:</strong>
-                            <div id="confirmedMembers" style="margin-top: 10px;">
-                                <!-- Members will be listed here -->
-                            </div>
-                        </div>
-                        
-                        <div style="margin-bottom: 15px;">
-                            <strong>Entry Fee:</strong> <span id="confirmedFee">₹500</span> (paid via <span id="confirmedMethod">PhonePe</span>)
-                        </div>
-                    </div>
-                    
-                    <div style="display: flex; gap: 15px;">
-                        <button class="btn btn-outline" onclick="closeModal()" style="flex: 1;">Close</button>
-                        <button class="btn btn-primary" onclick="viewTeamDashboard()" style="flex: 1;">View Team Dashboard</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Chat Modal -->
-    <div class="modal" id="chatModal">
-        <div class="modal-content" style="max-width: 900px;">
-            <div class="modal-header">
-                <h3>Team Chat - <span id="chatTeamName">Team Elite</span></h3>
-                <button class="close-modal" onclick="closeChatModal()">&times;</button>
-            </div>
-            
-            <div class="modal-body">
-                <div class="chat-container">
-                    <div class="chat-sidebar">
-                        <div style="padding: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
-                            <h4>Team Members</h4>
-                        </div>
-                        
-                        <div style="padding: 10px;">
-                            <div style="display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(255, 107, 0, 0.1); border-radius: 6px; margin-bottom: 10px;">
-                                <img src="https://via.placeholder.com/40x40?text=JD" alt="John Doe" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 600;">John Doe</div>
-                                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Team Leader</div>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-                                <img src="https://via.placeholder.com/40x40?text=MS" alt="Mike Smith" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 600;">Mike Smith</div>
-                                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Member</div>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-                                <img src="https://via.placeholder.com/40x40?text=SR" alt="Sarah Roy" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 600;">Sarah Roy</div>
-                                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Member</div>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px; margin-bottom: 10px;">
-                                <img src="https://via.placeholder.com/40x40?text=AK" alt="Amit Kumar" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 600;">Amit Kumar</div>
-                                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Member</div>
-                                </div>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 6px;">
-                                <img src="https://via.placeholder.com/40x40?text=PT" alt="Priya Tiwari" style="width: 30px; height: 30px; border-radius: 50%;">
-                                <div>
-                                    <div style="font-weight: 600;">Priya Tiwari</div>
-                                    <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Member</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="chat-main">
-                        <div class="chat-header">
-                            <img src="https://via.placeholder.com/40x40?text=TE" alt="Team Elite">
                             <div>
-                                <div style="font-weight: 600;">Team Elite</div>
-                                <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.6);">Weekend Warrior Tournament</div>
+                                <ul class="member-list" id="confirmedMembers">
+                                    <!-- Members will be listed here -->
+                                </ul>
                             </div>
                         </div>
                         
-                        <div class="chat-messages">
-                            <div class="message received">
-                                <div class="message-content">
-                                    Hey team! Are we all ready for the tournament tonight?
-                                </div>
-                                <div class="message-time">John Doe - 2:30 PM</div>
-                            </div>
-                            
-                            <div class="message sent">
-                                <div class="message-content">
-                                    Yes, I'm ready! What's our strategy?
-                                </div>
-                                <div class="message-time">You - 2:32 PM</div>
-                            </div>
-                            
-                            <div class="message received">
-                                <div class="message-content">
-                                    I think we should land at Mill and then move to Clock Tower
-                                </div>
-                                <div class="message-time">Mike Smith - 2:33 PM</div>
-                            </div>
-                            
-                            <div class="message received">
-                                <div class="message-content">
-                                    Sounds good to me. I'll be the sniper
-                                </div>
-                                <div class="message-time">Sarah Roy - 2:35 PM</div>
-                            </div>
-                            
-                            <div class="message received">
-                                <div class="message-content">
-                                    I can be the rusher. Let's meet 30 mins before start
-                                </div>
-                                <div class="message-time">Amit Kumar - 2:36 PM</div>
-                            </div>
+                        <div class="detail-item">
+                            <strong>Entry Fee:</strong>
+                            <span id="confirmedFee">₹500</span>
                         </div>
-                        
-                        <div class="chat-input">
-                            <input type="text" placeholder="Type your message...">
-                            <button><i class="fas fa-paper-plane"></i></button>
-                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-outline" onclick="closeModal()">
+                            <i class="fas fa-times"></i> Close
+                        </button>
+                        <button class="btn btn-primary" onclick="viewTeamDashboard()">
+                            <i class="fas fa-tachometer-alt"></i> View Team Dashboard
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1230,7 +1269,7 @@
                 map: "Bermuda",
                 level: "Pro",
                 fee: "500",
-                banner: "https://via.placeholder.com/400x150?text=Weekend+Warrior"
+                banner: "https://via.placeholder.com/600x300?text=Weekend+Warrior"
             },
             daily_showdown: {
                 title: "Daily Showdown",
@@ -1241,7 +1280,7 @@
                 map: "Purgatory",
                 level: "Amateur",
                 fee: "300",
-                banner: "https://via.placeholder.com/400x150?text=Daily+Showdown"
+                banner: "https://via.placeholder.com/600x300?text=Daily+Showdown"
             },
             elite_clash: {
                 title: "Elite Clash",
@@ -1252,7 +1291,7 @@
                 map: "Kalahari",
                 level: "Elite",
                 fee: "2000",
-                banner: "https://via.placeholder.com/400x150?text=Elite+Clash"
+                banner: "https://via.placeholder.com/600x300?text=Elite+Clash"
             },
             rush_hour: {
                 title: "Rush Hour",
@@ -1263,7 +1302,7 @@
                 map: "Bermuda",
                 level: "Intermediate",
                 fee: "1000",
-                banner: "https://via.placeholder.com/400x150?text=Rush+Hour"
+                banner: "https://via.placeholder.com/600x300?text=Rush+Hour"
             },
             newbie_night: {
                 title: "Newbie Night",
@@ -1274,7 +1313,7 @@
                 map: "Purgatory",
                 level: "Beginner",
                 fee: "200",
-                banner: "https://via.placeholder.com/400x150?text=Newbie+Night"
+                banner: "https://via.placeholder.com/600x300?text=Newbie+Night"
             },
             pro_series: {
                 title: "Pro Series",
@@ -1285,7 +1324,7 @@
                 map: "Kalahari",
                 level: "Pro",
                 fee: "5000",
-                banner: "https://via.placeholder.com/400x150?text=Pro+Series"
+                banner: "https://via.placeholder.com/600x300?text=Pro+Series"
             }
         };
         
@@ -1298,16 +1337,11 @@
                 email: "",
                 ffId: ""
             },
-            members: [],
-            payment: {
-                amount: "",
-                method: ""
-            }
+            members: []
         };
         
         let currentTournament = "";
         let currentStep = 1;
-        let selectedPaymentMethod = "";
         
         // Open registration modal
         function openRegistrationModal(tournamentId) {
@@ -1328,12 +1362,6 @@
             document.body.style.overflow = "auto";
         }
         
-        // Close chat modal
-        function closeChatModal() {
-            document.getElementById('chatModal').style.display = "none";
-            document.body.style.overflow = "auto";
-        }
-        
         // Reset registration form
         function resetRegistrationForm() {
             teamData = {
@@ -1344,39 +1372,33 @@
                     email: "",
                     ffId: ""
                 },
-                members: [],
-                payment: {
-                    amount: "",
-                    method: ""
-                }
+                members: []
             };
             
             currentStep = 1;
-            selectedPaymentMethod = "";
             
             // Reset UI
             document.getElementById('teamInfoForm').classList.add('active');
             document.getElementById('teamMembersForm').classList.remove('active');
-            document.getElementById('paymentForm').classList.remove('active');
             document.getElementById('confirmationForm').classList.remove('active');
             
             document.getElementById('step1').classList.add('active');
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.remove('active');
-            document.getElementById('step4').classList.remove('active');
             
             document.getElementById('step1').classList.remove('completed');
             document.getElementById('step2').classList.remove('completed');
             document.getElementById('step3').classList.remove('completed');
-            document.getElementById('step4').classList.remove('completed');
             
             document.getElementById('membersContainer').innerHTML = "";
+            updateMembersCount();
             
-            // Reset payment method selection
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            paymentMethods.forEach(method => {
-                method.classList.remove('selected');
-            });
+            // Reset form fields
+            document.getElementById('teamName').value = "";
+            document.getElementById('teamLeader').value = "";
+            document.getElementById('leaderPhone').value = "";
+            document.getElementById('leaderEmail').value = "";
+            document.getElementById('leaderFFID').value = "";
         }
         
         // Navigate to next step
@@ -1406,9 +1428,16 @@
             document.getElementById(`step${step}`).classList.add('active');
             document.getElementById(`step${step}`).classList.remove('completed');
             
-            // For step 4 (confirmation), populate the data
-            if (step === 4) {
+            // For step 3 (confirmation), populate the data
+            if (step === 3) {
                 populateConfirmationData();
+            }
+            
+            // For step 2 (team members), add default members if empty
+            if (step === 2 && teamData.members.length === 0) {
+                for (let i = 0; i < 4; i++) {
+                    addTeamMember();
+                }
             }
         }
         
@@ -1421,7 +1450,7 @@
             currentStep = step;
             
             // Mark next steps as not completed
-            for (let i = step + 1; i <= 4; i++) {
+            for (let i = step + 1; i <= 3; i++) {
                 document.getElementById(`step${i}`).classList.remove('completed');
                 document.getElementById(`step${i}`).classList.remove('active');
             }
@@ -1476,24 +1505,31 @@
             const memberHtml = `
                 <div class="member-card" data-id="${memberId}">
                     <div class="member-header">
-                        <h5>Member ${memberNumber}</h5>
-                        <button class="remove-member" onclick="removeMember(${memberId})">&times;</button>
+                        <div class="member-title">
+                            <div class="member-number">${memberNumber}</div>
+                            <h5>Team Member ${memberNumber}</h5>
+                        </div>
+                        <button class="remove-member" onclick="removeMember(${memberId})">
+                            <i class="fas fa-times"></i>
+                        </button>
                     </div>
-                    <div class="form-group">
-                        <label for="memberName${memberId}">Name</label>
-                        <input type="text" id="memberName${memberId}" class="form-control" placeholder="Enter member name">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberPhone${memberId}">Phone Number</label>
-                        <input type="tel" id="memberPhone${memberId}" class="form-control" placeholder="Enter phone number">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberEmail${memberId}">Email (optional)</label>
-                        <input type="email" id="memberEmail${memberId}" class="form-control" placeholder="Enter email address">
-                    </div>
-                    <div class="form-group">
-                        <label for="memberFFID${memberId}">Free Fire ID</label>
-                        <input type="text" id="memberFFID${memberId}" class="form-control" placeholder="Enter Free Fire ID">
+                    <div class="member-fields">
+                        <div class="form-group">
+                            <label for="memberName${memberId}">Name</label>
+                            <input type="text" id="memberName${memberId}" class="form-control" placeholder="Enter member name">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberPhone${memberId}">Phone Number</label>
+                            <input type="tel" id="memberPhone${memberId}" class="form-control" placeholder="Enter phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberEmail${memberId}">Email (optional)</label>
+                            <input type="email" id="memberEmail${memberId}" class="form-control" placeholder="Enter email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="memberFFID${memberId}">Free Fire ID</label>
+                            <input type="text" id="memberFFID${memberId}" class="form-control" placeholder="Enter Free Fire ID">
+                        </div>
                     </div>
                 </div>
             `;
@@ -1508,6 +1544,8 @@
                 email: "",
                 ffId: ""
             });
+            
+            updateMembersCount();
         }
         
         // Remove team member
@@ -1526,8 +1564,17 @@
             // Renumber remaining members
             const memberCards = document.querySelectorAll('.member-card');
             memberCards.forEach((card, index) => {
-                card.querySelector('h5').textContent = `Member ${index + 1}`;
+                card.querySelector('.member-number').textContent = index + 1;
+                card.querySelector('h5').textContent = `Team Member ${index + 1}`;
             });
+            
+            updateMembersCount();
+        }
+        
+        // Update members count display
+        function updateMembersCount() {
+            const count = teamData.members.length;
+            document.getElementById('membersCount').textContent = `${count}/4 Members`;
         }
         
         // Validate team members (step 2)
@@ -1572,100 +1619,41 @@
             return true;
         }
         
-        // Select payment method (step 3)
-        function selectPaymentMethod(method) {
-            selectedPaymentMethod = method;
-            teamData.payment.method = method;
-            
-            // Update UI
-            const paymentMethods = document.querySelectorAll('.payment-method');
-            paymentMethods.forEach(m => {
-                m.classList.remove('selected');
-            });
-            
-            event.currentTarget.classList.add('selected');
+        // Complete registration
+        function completeRegistration() {
+            if (validateTeamMembers()) {
+                nextStep(3);
+            }
         }
         
-        // Process payment (step 3)
-        function processPayment() {
-            const amount = document.getElementById('entryFee').value;
-            
-            if (!amount) {
-                alert('Please select an entry fee');
-                return;
-            }
-            
-            if (!selectedPaymentMethod) {
-                alert('Please select a payment method');
-                return;
-            }
-            
-            teamData.payment.amount = amount;
-            
-            // In a real app, this would redirect to payment gateway
-            // For demo, we'll simulate successful payment
-            setTimeout(() => {
-                nextStep(4);
-            }, 1000);
-        }
-        
-        // Populate confirmation data (step 4)
+        // Populate confirmation data (step 3)
         function populateConfirmationData() {
             document.getElementById('confirmedTournament').textContent = tournaments[currentTournament].title;
             document.getElementById('confirmedTeamName').textContent = teamData.name;
             document.getElementById('confirmedLeader').textContent = `${teamData.leader.name} (${teamData.leader.ffId})`;
-            document.getElementById('confirmedFee').textContent = `₹${teamData.payment.amount}`;
-            document.getElementById('confirmedMethod').textContent = teamData.payment.method.charAt(0).toUpperCase() + teamData.payment.method.slice(1);
+            document.getElementById('confirmedFee').textContent = `₹${tournaments[currentTournament].fee}`;
             
             // Populate members
             const membersContainer = document.getElementById('confirmedMembers');
             membersContainer.innerHTML = "";
             
             teamData.members.forEach(member => {
-                const memberDiv = document.createElement('div');
-                memberDiv.style.marginBottom = "5px";
-                memberDiv.textContent = `${member.name} (${member.ffId})`;
-                membersContainer.appendChild(memberDiv);
+                const memberItem = document.createElement('li');
+                memberItem.textContent = `${member.name} (${member.ffId})`;
+                membersContainer.appendChild(memberItem);
             });
         }
         
         // View team dashboard
         function viewTeamDashboard() {
             closeModal();
-            
-            // In a real app, this would redirect to team dashboard
-            // For demo, we'll open the chat modal
-            document.getElementById('chatTeamName').textContent = teamData.name;
-            document.getElementById('chatModal').style.display = "block";
+            alert('Team dashboard would open here in a real application');
         }
         
-        // Initialize team members form when modal opens
+        // Close modal when clicking outside
         document.getElementById('registrationModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
-            }
-        });
-        
-        document.getElementById('chatModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeChatModal();
-            }
-        });
-        
-        // Initialize with 4 members when team members form is shown
-        document.getElementById('teamMembersForm').addEventListener('animationend', function() {
-            if (this.classList.contains('active') && teamData.members.length === 0) {
-                for (let i = 0; i < 4; i++) {
-                    addTeamMember();
-                }
-            }
-        });
-        
-        // Set default entry fee based on tournament
-        document.getElementById('entryFee').addEventListener('focus', function() {
-            if (currentTournament) {
-                this.value = tournaments[currentTournament].fee;
-                teamData.payment.amount = this.value;
             }
         });
     </script>
